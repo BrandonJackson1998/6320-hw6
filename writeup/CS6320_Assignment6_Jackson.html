@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>CS6320_Assignment6_Jackson</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<h1 id="cs-6320-assignment-6">CS 6320 — Assignment 6</h1>
+<p><strong>Name:</strong> Brandon Jackson<br />
+<strong>Semester:</strong> Summer 2026<br />
+<strong>Course:</strong> Deep Learning (CS 6320)</p>
+<hr />
+<h2
+id="part-a-portfolio-tabular-representation-and-model-comparison-bgg">Part
+A — Portfolio tabular representation and model comparison (BGG)</h2>
+<p><strong>Work type:</strong> Native tabular portfolio data (not proxy,
+not fallback case study).</p>
+<h3 id="portfolio-problem-and-representation">Portfolio problem and
+representation</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Item</th>
+<th>Lock</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stakeholder</td>
+<td>Hobby retailer screening preorder / initial stock for BGG-aware
+customers</td>
+</tr>
+<tr>
+<td>Dataset</td>
+<td>Kaggle <em>Board Games Database from BoardGameGeek</em>
+(<code>games.csv</code>, 21,925 rated games)</td>
+</tr>
+<tr>
+<td>Unit</td>
+<td>One row per game (<code>BGGId</code>)</td>
+</tr>
+<tr>
+<td>Target</td>
+<td><code>high_rating = 1</code> if <code>AvgRating &gt;= 7.0</code>,
+else <code>0</code> (~26.9% positive)</td>
+</tr>
+<tr>
+<td>Representation</td>
+<td><strong>Native tabular</strong> — numeric design metadata,
+<code>GameWeight</code>, category flags, simple text-length features,
+parsed <code>goodplayers_count</code></td>
+</tr>
+<tr>
+<td>Part A path</td>
+<td>Portfolio table directly (no Week 6 proxy translator)</td>
+</tr>
+<tr>
+<td>Seed</td>
+<td><code>6320</code></td>
+</tr>
+<tr>
+<td>Implementation</td>
+<td><code>6320-hw6/scripts/</code>; end-to-end:
+<code>bash run_local.sh</code></td>
+</tr>
+</tbody>
+</table>
+<p>Features follow the Assignment 4 charter and Assignment 5 manifest:
+rating fields, rank columns, popularity counts, and mis-timed demand
+fields (<code>NumOwned</code>, <code>NumWant</code>,
+<code>NumWish</code>) are <strong>hard-excluded</strong>. Raw
+<code>Name</code> / <code>Description</code> text are not fed to models
+— only length/count proxies (same v1 charter).</p>
+<h3 id="preprocessing-and-prediction-time-rules">Preprocessing and
+prediction-time rules</h3>
+<ol type="1">
+<li><strong>Split first</strong> — stratified random 70% / 15% / 15% by
+game row (unchanged from Assignment 5).</li>
+<li><strong>Imputation</strong> — numeric medians computed on
+<strong>training rows only</strong>, applied to validation/test (via
+<code>build_feature_matrix</code> on each split frame).</li>
+<li><strong>Scaling</strong> — <code>StandardScaler</code> fit on
+<strong>training</strong> features for logistic regression and MLP;
+trees use median-imputed raw features (scale-invariant).</li>
+<li><strong>Categories</strong> — eight <code>Cat:*</code> flags kept as
+0/1 integers (low cardinality).</li>
+<li><strong>Leakage</strong> — no rating-derived or post-hoc demand
+columns in <em>X</em>; each game appears in one split only.</li>
+</ol>
+<p><strong>Embeddings:</strong> Not used. Category fields are binary
+flags, not repeated high-cardinality IDs. Numeric fields are not
+identity codes. Sentence for writeup: <em>“Embeddings were not
+appropriate because categories are low-cardinality one-hot flags and
+there are no stable high-cardinality entity IDs; I used scaled numerics
+plus binary category columns instead.”</em></p>
+<h3 id="split-and-audit-evidence">Split and audit evidence</h3>
+<table>
+<thead>
+<tr>
+<th>Split</th>
+<th style="text-align: right;">Rows</th>
+<th style="text-align: right;">Positive rate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>train</td>
+<td style="text-align: right;">15,347</td>
+<td style="text-align: right;">26.9%</td>
+</tr>
+<tr>
+<td>validation</td>
+<td style="text-align: right;">3,289</td>
+<td style="text-align: right;">27.7%</td>
+</tr>
+<tr>
+<td>test</td>
+<td style="text-align: right;">3,289</td>
+<td style="text-align: right;">26.2%</td>
+</tr>
+</tbody>
+</table>
+<p>Positive rates are stable across splits (within ~1.5 pp). Audit
+tables: <code>prep/bgg_split/split_audit/</code> (counts, numeric
+distributions, category positive rates).</p>
+<h3 id="models-compared-same-target-split-metrics">Models compared (same
+target, split, metrics)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Model</th>
+<th>Role</th>
+<th>Key settings</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Majority class</td>
+<td>Sanity</td>
+<td>Always predict not-high</td>
+</tr>
+<tr>
+<td>Logistic regression</td>
+<td>Simple linear baseline</td>
+<td>L2, unweighted; train-fitted <code>StandardScaler</code></td>
+</tr>
+<tr>
+<td>Gradient boosted trees</td>
+<td>Strong tabular benchmark</td>
+<td><code>HistGradientBoostingClassifier</code>, depth 6, lr 0.08, 300
+trees</td>
+</tr>
+<tr>
+<td>MLP</td>
+<td>Neural tabular</td>
+<td>64→32, ReLU, dropout 0.2, Adam (wd=1e-4), <strong>BCE
+<code>pos_weight</code></strong> for imbalance, <strong>early stop on
+validation F1</strong> (patience 15; best epoch
+<strong>63</strong>)</td>
+</tr>
+</tbody>
+</table>
+<p>Model selection uses <strong>validation F1</strong> on
+<code>high_rating=1</code>. Test metrics reported once for final
+comparison. No hyperparameter search beyond the fixed configs above.</p>
+<h3 id="results-table">Results table</h3>
+<table>
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr>
+<th>Model</th>
+<th style="text-align: right;">Val F1</th>
+<th style="text-align: right;">Val recall</th>
+<th style="text-align: right;">Val ROC-AUC</th>
+<th style="text-align: right;">Test F1</th>
+<th style="text-align: right;">Test recall</th>
+<th style="text-align: right;">Test ROC-AUC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Majority class</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.500</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.500</td>
+</tr>
+<tr>
+<td>Logistic regression</td>
+<td style="text-align: right;">0.527</td>
+<td style="text-align: right;">0.422</td>
+<td style="text-align: right;">0.815</td>
+<td style="text-align: right;">0.544</td>
+<td style="text-align: right;">0.454</td>
+<td style="text-align: right;">0.832</td>
+</tr>
+<tr>
+<td><strong>Gradient boosted trees</strong></td>
+<td style="text-align: right;"><strong>0.685</strong></td>
+<td style="text-align: right;">0.624</td>
+<td style="text-align: right;"><strong>0.895</strong></td>
+<td style="text-align: right;"><strong>0.714</strong></td>
+<td style="text-align: right;">0.661</td>
+<td style="text-align: right;"><strong>0.910</strong></td>
+</tr>
+<tr>
+<td>MLP (early stop, epoch 63)</td>
+<td style="text-align: right;">0.621</td>
+<td style="text-align: right;"><strong>0.730</strong></td>
+<td style="text-align: right;">0.818</td>
+<td style="text-align: right;">0.619</td>
+<td style="text-align: right;"><strong>0.747</strong></td>
+<td style="text-align: right;">0.830</td>
+</tr>
+</tbody>
+</table>
+<p>Validation precision: logistic <strong>0.703</strong>, GBT
+<strong>0.759</strong>, MLP <strong>0.541</strong>. Test accuracy:
+logistic <strong>0.801</strong>, GBT <strong>0.861</strong>, MLP
+<strong>0.759</strong>.</p>
+<figure>
+<img src="mlp_training_curves.png"
+alt="MLP training curves — validation checkpoint selection" />
+<figcaption aria-hidden="true">MLP training curves — validation
+checkpoint selection</figcaption>
+</figure>
+<p><em>Figure 1: MLP train/validation F1 and validation recall/ROC-AUC;
+dashed line = selected checkpoint (epoch 63).</em></p>
+<h3 id="model-choice-recommendation">Model-choice recommendation</h3>
+<p><strong>Tabular modeling is justified</strong> for this portfolio
+problem: structured metadata and category flags carry signal well above
+chance (ROC-AUC ~0.91 test for GBT vs 0.50 majority).</p>
+<p><strong>Recommended staged model: gradient boosted trees</strong>,
+not the MLP.</p>
+<ul>
+<li>GBT wins on <strong>validation and test F1</strong> and
+<strong>ROC-AUC</strong> with the best precision–recall balance for a
+screening task.</li>
+<li>The MLP reaches <strong>higher recall</strong> (~0.75 test) but
+<strong>lower F1 and precision</strong> than GBT — it over-predicts
+positives, which wastes buyer attention (false stock flags).</li>
+<li>Logistic regression remains a useful <strong>transparent
+floor</strong> but under-recalls hits (~0.45 test recall), consistent
+with Assignment 5.</li>
+<li>Neural tabular complexity (checkpoint tuning, opaque weights,
+calibration risk from Assignment 5) is <strong>not justified</strong>
+when GBT beats the MLP on the primary ranking metrics under the same
+split.</li>
+</ul>
+<p><strong>Change trigger:</strong> If a time-based split collapses GBT
+advantage, or if recalibrated probabilities become a hard requirement,
+revisit logistic + Platt scaling before adding neural capacity.</p>
+<h3 id="practical-constraints">Practical constraints</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Constraint</th>
+<th>Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Interpretability</td>
+<td>Logistic and tree splits easier to explain to a buyer than MLP
+weights</td>
+</tr>
+<tr>
+<td>Cost / ops</td>
+<td>All models train in seconds on local CPU (~22k rows); GBT and MLP
+similar inference cost</td>
+</tr>
+<tr>
+<td>Maintainability</td>
+<td>Fixed sklearn/torch pipelines; manifest documents feature
+exclusions</td>
+</tr>
+<tr>
+<td>Data size</td>
+<td>Tabular row count is modest — no need for large-scale neural
+capacity</td>
+</tr>
+<tr>
+<td>Monitoring</td>
+<td>Track slice metrics (e.g. light vs heavy games from A5) if GBT is
+deployed internally</td>
+</tr>
+</tbody>
+</table>
+<h3 id="responsible-use-concern">Responsible-use concern</h3>
+<p>BGG ratings reflect <strong>enthusiast community taste</strong>, not
+universal quality. Assignment 5 slices showed <strong>weak performance
+on light games</strong> (low positive rate, low recall). A tabular model
+— especially one tuned for recall like the MLP — can still
+<strong>over-flag</strong> niche titles. Outputs should remain
+<strong>human-review screening aids</strong>, not automated stock
+decisions; sensitive-proxy risk from title text is mitigated in v1 by
+using length features only, but franchise memorization should be audited
+before client-facing use.</p>
+<h3 id="run-evidence-local">Run evidence (local)</h3>
+<ul>
+<li>Command: <code>bash run_local.sh</code> from repo root</li>
+<li>Data: <code>6320-hw2/part_b/data/bgg/games.csv</code> (or
+<code>GAMES_CSV</code>)</li>
+<li>Artifacts: <code>outputs/comparison_table.csv</code>,
+<code>outputs/*/summary.json</code>,
+<code>outputs/mlp_early_stop/mlp_history.csv</code>,
+<code>outputs/plots/mlp_training_curves.png</code>,
+<code>logs/run_local.log</code></li>
+<li>Compute: local CPU only; CHPC not required</li>
+</ul>
+<hr />
+<h2 id="part-b-portfolio-checkpoint-and-model-choice-note">Part B —
+Portfolio checkpoint and model-choice note</h2>
+<h3 id="current-data-readiness">Current data readiness</h3>
+<p><strong>Usable.</strong> BGG <code>games.csv</code> is local, parsed,
+and split under the Assignment 4/5 charter (stratified hold-out, seed
+6320). Feature manifest and split audits are reproducible via
+<code>prepare_bgg_data.py</code> and <code>run_split_audit.py</code>. No
+proxy or fallback path was needed.</p>
+<h3 id="current-baseline-model-status">Current baseline / model
+status</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Majority + logistic baseline</td>
+<td>Complete (A5); logistic metrics reproduced in A6 comparison</td>
+</tr>
+<tr>
+<td>Assignment 5 evaluation</td>
+<td>Complete — imbalance, calibration gaps, slice weakness
+documented</td>
+</tr>
+<tr>
+<td>Gradient boosted trees</td>
+<td><strong>Trained (A6)</strong> — current best tabular candidate</td>
+</tr>
+<tr>
+<td>MLP tabular</td>
+<td><strong>Trained (A6)</strong> — competitive recall but secondary to
+GBT on F1/ROC-AUC</td>
+</tr>
+<tr>
+<td>Time-based split</td>
+<td>Not yet run — still open from charter</td>
+</tr>
+<tr>
+<td>Text / image modeling</td>
+<td>Not started — Week 7+ relevance TBD</td>
+</tr>
+</tbody>
+</table>
+<h3 id="next-planned-experiment">Next planned experiment</h3>
+<p><strong>Time-based split by <code>YearPublished</code></strong>
+(recent-release validation cohort) with the <strong>same feature
+manifest and GBT config</strong>, plus <strong>recalibration</strong>
+(Platt or isotonic on validation, checked on test). This tests the
+charter’s pre-release prediction story beyond random stratified
+hold-out.</p>
+<h3 id="expected-staged-improvement">Expected staged improvement</h3>
+<p>Honest pre-release metrics (likely lower than random split),
+better-calibrated probabilities for threshold decisions, and slice
+tables by release era. Success = documented trade-off between recall and
+precision under a decision-relevant split, not a single accuracy
+number.</p>
+<h3 id="how-week-6-evidence-affects-the-final-model-choice-argument">How
+Week 6 evidence affects the final model-choice argument</h3>
+<p>Week 6 supports <strong>keeping tabular methods central</strong> to
+the portfolio: GBT on metadata alone reaches <strong>test F1 0.71 /
+ROC-AUC 0.91</strong>. It does <strong>not</strong> support elevating a
+neural tabular model — the MLP adds complexity without winning the
+comparison. The final presentation can argue: <em>structured features
+are sufficient for internal screening; modality-specific models (text
+embeddings, cover images) must beat this GBT protocol under a time split
+before they earn a place in the recommendation.</em></p>
+<h3 id="assignment-4-audit-charter-updates">Assignment 4 audit / charter
+updates</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>A4 item</th>
+<th>Week 6 evidence</th>
+<th>Update</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Class imbalance</td>
+<td>Logistic under-recalls; MLP boosts recall at precision cost; GBT
+balances best</td>
+<td><strong>Confirmed</strong> — metric choice must include
+F1/recall</td>
+</tr>
+<tr>
+<td>Leakage exclusions</td>
+<td>Same manifest; GBT gain is not from rating columns</td>
+<td><strong>Reinforced</strong></td>
+</tr>
+<tr>
+<td>GBT as initial candidate</td>
+<td>Now trained; beats logistic and MLP on F1/AUC</td>
+<td><strong>Success criterion met</strong> for classical stage</td>
+</tr>
+<tr>
+<td>Time-split generalization</td>
+<td>Still random split only</td>
+<td><strong>Still untested</strong> — next experiment</td>
+</tr>
+<tr>
+<td>Calibration / deployment</td>
+<td>Not re-run in A6; GBT probabilities still need recalibration</td>
+<td><strong>Still open</strong></td>
+</tr>
+<tr>
+<td>Representativeness (light games)</td>
+<td>Not re-sliced in A6</td>
+<td><strong>Still flagged</strong> from A5</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tabular-relevance-for-the-portfolio">Tabular relevance for the
+portfolio</h3>
+<p><strong>Directly relevant.</strong> The client problem is inherently
+tabular metadata prediction. Embeddings are <strong>not
+relevant</strong> in v1 (low-cardinality categories). Simpler baselines
+remain <strong>indirectly relevant</strong> as floors and explainability
+anchors even if GBT becomes the primary candidate.</p>
+<hr />
+<h2 id="ai-disclosure">AI disclosure</h2>
+<p><strong>Tool:</strong> Cursor (Composer)</p>
+<p><strong>AI-assisted:</strong> Repo scaffolding, model-comparison
+scripts, PyTorch MLP training loop, first-draft writeup prose.</p>
+<p><strong>My work:</strong> Locked native-tabular path; chose model set
+and fixed configs; ran and verified all metrics against saved outputs;
+model-choice recommendation based on comparison table.</p>
+<p><strong>Certification:</strong> I certify that all work not described
+above is my own, and I verified AI-generated content for accuracy.</p>
+</body>
+</html>

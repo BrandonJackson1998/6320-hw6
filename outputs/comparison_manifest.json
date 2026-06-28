@@ -1,0 +1,11 @@
+{
+  "seed": 6320,
+  "split_policy": "stratified 70/15/15 by game row (Assignment 5)",
+  "feature_manifest": "Assignment 4/5 charter exclusions enforced",
+  "models": [
+    "Majority class",
+    "Logistic regression",
+    "Gradient boosted trees",
+    "MLP (early stop)"
+  ]
+}

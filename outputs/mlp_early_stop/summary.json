@@ -1,0 +1,29 @@
+{
+  "model": "TabularMLP(64-32, dropout=0.2)",
+  "optimizer": "Adam",
+  "learning_rate": 0.001,
+  "weight_decay": 0.0001,
+  "regularization": "dropout=0.2 + weight_decay + BCE pos_weight for imbalance",
+  "selection": {
+    "selected_epoch": 63,
+    "selected_validation_f1": 0.6214319138979878,
+    "stopped_epoch": 78,
+    "patience": 15
+  },
+  "preprocessing": "train-fitted StandardScaler",
+  "seed": 6320,
+  "validation": {
+    "validation_accuracy": 0.7540285801155366,
+    "validation_precision": 0.541157294213529,
+    "validation_recall": 0.7296703296703296,
+    "validation_f1": 0.6214319138979878,
+    "validation_roc_auc": 0.8176664865189456
+  },
+  "test": {
+    "test_accuracy": 0.758893280632411,
+    "test_precision": 0.5283018867924528,
+    "test_recall": 0.7470997679814385,
+    "test_f1": 0.6189332051898125,
+    "test_roc_auc": 0.830190519073417
+  }
+}

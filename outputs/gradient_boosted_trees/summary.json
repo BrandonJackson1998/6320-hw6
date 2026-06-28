@@ -1,0 +1,24 @@
+{
+  "model": "HistGradientBoostingClassifier",
+  "settings": {
+    "max_depth": 6,
+    "learning_rate": 0.08,
+    "max_iter": 300
+  },
+  "preprocessing": "median-imputed raw features (trees invariant to scaling)",
+  "seed": 6320,
+  "validation": {
+    "validation_accuracy": 0.8412891456369718,
+    "validation_precision": 0.7593582887700535,
+    "validation_recall": 0.6241758241758242,
+    "validation_f1": 0.6851628468033776,
+    "validation_roc_auc": 0.8951688076530446
+  },
+  "test": {
+    "test_accuracy": 0.8613560352690788,
+    "test_precision": 0.776566757493188,
+    "test_recall": 0.6612529002320185,
+    "test_f1": 0.7142857142857143,
+    "test_roc_auc": 0.9098722129331944
+  }
+}

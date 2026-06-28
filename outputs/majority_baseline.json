@@ -1,0 +1,17 @@
+{
+  "model": "majority_class",
+  "validation": {
+    "validation_accuracy": 0.7233201581027668,
+    "validation_precision": 0.0,
+    "validation_recall": 0.0,
+    "validation_f1": 0.0,
+    "validation_roc_auc": 0.5
+  },
+  "test": {
+    "test_accuracy": 0.7379142596533901,
+    "test_precision": 0.0,
+    "test_recall": 0.0,
+    "test_f1": 0.0,
+    "test_roc_auc": 0.5
+  }
+}

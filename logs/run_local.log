@@ -1,0 +1,40 @@
+=== CS6320 Assignment 6 local run 2026-06-28T04:21:06Z ===
+Wrote prepared data to /Users/brandon.jackson/Documents/GitHub/6320-hw6/prep/bgg_split/data
+     split  rows  positive_rate
+     train 15347       0.268652
+validation  3289       0.276680
+      test  3289       0.262086
+Wrote split audit tables to /Users/brandon.jackson/Documents/GitHub/6320-hw6/prep/bgg_split/split_audit
+/Users/brandon.jackson/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_linear_loss.py:200: RuntimeWarning: divide by zero encountered in matmul
+  raw_prediction = X @ weights + intercept
+/Users/brandon.jackson/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_linear_loss.py:200: RuntimeWarning: overflow encountered in matmul
+  raw_prediction = X @ weights + intercept
+/Users/brandon.jackson/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_linear_loss.py:200: RuntimeWarning: invalid value encountered in matmul
+  raw_prediction = X @ weights + intercept
+/Users/brandon.jackson/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_linear_loss.py:330: RuntimeWarning: divide by zero encountered in matmul
+  grad[:n_features] = X.T @ grad_pointwise + l2_reg_strength * weights
+/Users/brandon.jackson/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_linear_loss.py:330: RuntimeWarning: overflow encountered in matmul
+  grad[:n_features] = X.T @ grad_pointwise + l2_reg_strength * weights
+/Users/brandon.jackson/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_linear_loss.py:330: RuntimeWarning: invalid value encountered in matmul
+  grad[:n_features] = X.T @ grad_pointwise + l2_reg_strength * weights
+/Users/brandon.jackson/Library/Python/3.9/lib/python/site-packages/sklearn/utils/extmath.py:203: RuntimeWarning: divide by zero encountered in matmul
+  ret = a @ b
+/Users/brandon.jackson/Library/Python/3.9/lib/python/site-packages/sklearn/utils/extmath.py:203: RuntimeWarning: overflow encountered in matmul
+  ret = a @ b
+/Users/brandon.jackson/Library/Python/3.9/lib/python/site-packages/sklearn/utils/extmath.py:203: RuntimeWarning: invalid value encountered in matmul
+  ret = a @ b
+/Users/brandon.jackson/Library/Python/3.9/lib/python/site-packages/sklearn/utils/extmath.py:203: RuntimeWarning: divide by zero encountered in matmul
+  ret = a @ b
+/Users/brandon.jackson/Library/Python/3.9/lib/python/site-packages/sklearn/utils/extmath.py:203: RuntimeWarning: overflow encountered in matmul
+  ret = a @ b
+/Users/brandon.jackson/Library/Python/3.9/lib/python/site-packages/sklearn/utils/extmath.py:203: RuntimeWarning: invalid value encountered in matmul
+  ret = a @ b
+                 model                                               key_settings  validation_f1  validation_recall  validation_roc_auc  test_f1  test_recall  test_roc_auc                                                 practical_notes
+        Majority class              Always predict not-high (prevalence baseline)       0.000000           0.000000            0.500000 0.000000     0.000000      0.500000                            Sanity check; F1=0 on positive class
+   Logistic regression                L2, unweighted; train-fitted StandardScaler       0.527473           0.421978            0.814907 0.544189     0.453596      0.832252       Transparent linear baseline; under-recalls minority class
+Gradient boosted trees   HistGBM depth=6, lr=0.08, 300 est.; raw imputed features       0.685163           0.624176            0.895169 0.714286     0.661253      0.909872 Strong nonlinear tabular benchmark; partial feature importances
+      MLP (early stop) 64→32, dropout 0.2, Adam wd=0.0001; best epoch 1 by val F1       0.149626           0.098901            0.428837 0.148279     0.097448      0.445124           Neural tabular; harder to explain than trees/logistic
+
+Saved comparison to /Users/brandon.jackson/Documents/GitHub/6320-hw6/outputs
+wrote /Users/brandon.jackson/Documents/GitHub/6320-hw6/outputs/plots/mlp_training_curves.png
+Done.
