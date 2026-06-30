@@ -26,8 +26,10 @@ from sklearn.preprocessing import StandardScaler
 from bgg_common import (
     DEFAULT_OUTPUT_DIR,
     DEFAULT_PREP_DIR,
+    NUMERIC_METADATA_COLUMNS,
     RANDOM_STATE,
     build_feature_matrix,
+    feature_columns,
     load_prepared_split,
     split_frame,
     write_json,
@@ -188,9 +190,14 @@ def main() -> None:
     val = split_frame(prepared, "validation")
     test = split_frame(prepared, "test")
 
-    x_train, y_train = build_feature_matrix(train)
-    x_val, y_val = build_feature_matrix(val)
-    x_test, y_test = build_feature_matrix(test)
+    train_numeric = train[feature_columns()].copy()
+    for col in NUMERIC_METADATA_COLUMNS:
+        train_numeric[col] = pd.to_numeric(train_numeric[col], errors="coerce")
+    train_medians = train_numeric[NUMERIC_METADATA_COLUMNS].median(numeric_only=True)
+
+    x_train, y_train = build_feature_matrix(train, numeric_medians=train_medians)
+    x_val, y_val = build_feature_matrix(val, numeric_medians=train_medians)
+    x_test, y_test = build_feature_matrix(test, numeric_medians=train_medians)
 
     y_train_np = y_train.to_numpy()
     y_val_np = y_val.to_numpy()

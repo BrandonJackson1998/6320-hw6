@@ -146,7 +146,10 @@ def feature_columns() -> list[str]:
     ]
 
 
-def build_feature_matrix(frame: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]:
+def build_feature_matrix(
+    frame: pd.DataFrame,
+    numeric_medians: pd.Series | None = None,
+) -> tuple[pd.DataFrame, pd.Series]:
     cols = feature_columns()
     missing = [col for col in cols if col not in frame.columns]
     if missing:
@@ -156,7 +159,11 @@ def build_feature_matrix(frame: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]:
         x_frame[col] = pd.to_numeric(x_frame[col], errors="coerce")
     for col in CATEGORY_COLUMNS:
         x_frame[col] = pd.to_numeric(x_frame[col], errors="coerce").fillna(0).astype(int)
-    medians = x_frame[NUMERIC_METADATA_COLUMNS].median(numeric_only=True)
+    medians = (
+        numeric_medians
+        if numeric_medians is not None
+        else x_frame[NUMERIC_METADATA_COLUMNS].median(numeric_only=True)
+    )
     x_frame[NUMERIC_METADATA_COLUMNS] = x_frame[NUMERIC_METADATA_COLUMNS].fillna(medians)
     x_frame["description_word_count"] = x_frame["description_word_count"].fillna(0)
     x_frame["name_char_len"] = x_frame["name_char_len"].fillna(0)

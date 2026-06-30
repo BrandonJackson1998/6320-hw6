@@ -6,24 +6,24 @@
   "regularization": "dropout=0.2 + weight_decay + BCE pos_weight for imbalance",
   "selection": {
     "selected_epoch": 63,
-    "selected_validation_f1": 0.6214319138979878,
+    "selected_validation_f1": 0.6204960224613945,
     "stopped_epoch": 78,
     "patience": 15
   },
   "preprocessing": "train-fitted StandardScaler",
   "seed": 6320,
   "validation": {
-    "validation_accuracy": 0.7540285801155366,
-    "validation_precision": 0.541157294213529,
-    "validation_recall": 0.7296703296703296,
-    "validation_f1": 0.6214319138979878,
-    "validation_roc_auc": 0.8176664865189456
+    "validation_accuracy": 0.7534204925509274,
+    "validation_precision": 0.5403422982885085,
+    "validation_recall": 0.7285714285714285,
+    "validation_f1": 0.6204960224613945,
+    "validation_roc_auc": 0.8176775725325536
   },
   "test": {
     "test_accuracy": 0.758893280632411,
     "test_precision": 0.5283018867924528,
     "test_recall": 0.7470997679814385,
     "test_f1": 0.6189332051898125,
-    "test_roc_auc": 0.830190519073417
+    "test_roc_auc": 0.8301800031930037
   }
 }

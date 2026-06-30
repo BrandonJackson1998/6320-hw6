@@ -7,13 +7,13 @@
     "validation_precision": 0.7032967032967034,
     "validation_recall": 0.421978021978022,
     "validation_f1": 0.5274725274725275,
-    "validation_roc_auc": 0.8149065310477668
+    "validation_roc_auc": 0.8149097644684027
   },
   "test": {
     "test_accuracy": 0.800851322590453,
     "test_precision": 0.68,
     "test_recall": 0.45359628770301624,
     "test_f1": 0.5441892832289492,
-    "test_roc_auc": 0.8322516316344448
+    "test_roc_auc": 0.83224541770511
   }
 }

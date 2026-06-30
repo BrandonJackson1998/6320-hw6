@@ -1,5 +1,5 @@
 model,key_settings,validation_f1,validation_recall,validation_roc_auc,test_f1,test_recall,test_roc_auc,practical_notes
 Majority class,Always predict not-high (prevalence baseline),0.0,0.0,0.5,0.0,0.0,0.5,Sanity check; F1=0 on positive class
-Logistic regression,"L2, unweighted; train-fitted StandardScaler",0.5274725274725275,0.421978021978022,0.8149065310477668,0.5441892832289492,0.45359628770301624,0.8322516316344448,Transparent linear baseline; under-recalls minority class
-Gradient boosted trees,"HistGBM depth=6, lr=0.08, 300 est.; raw imputed features",0.6851628468033776,0.6241758241758242,0.8951688076530446,0.7142857142857143,0.6612529002320185,0.9098722129331944,Strong nonlinear tabular benchmark; partial feature importances
-MLP (early stop),"64→32, dropout 0.2, Adam wd=0.0001; best epoch 63 by val F1",0.6214319138979878,0.7296703296703296,0.8176664865189456,0.6189332051898125,0.7470997679814385,0.830190519073417,Neural tabular; harder to explain than trees/logistic
+Logistic regression,"L2, unweighted; train-fitted StandardScaler",0.5274725274725275,0.421978021978022,0.8149097644684027,0.5441892832289492,0.45359628770301624,0.83224541770511,Transparent linear baseline; under-recalls minority class
+Gradient boosted trees,"HistGBM depth=6, lr=0.08, 300 est.; raw imputed features",0.684369342184671,0.6230769230769231,0.8951203063435093,0.7139272271016311,0.660092807424594,0.9099960135253341,Strong nonlinear tabular benchmark; partial feature importances
+MLP (early stop),"64→32, dropout 0.2, Adam wd=0.0001; best epoch 63 by val F1",0.6204960224613945,0.7285714285714285,0.8176775725325536,0.6189332051898125,0.7470997679814385,0.8301800031930037,Neural tabular; harder to explain than trees/logistic

@@ -248,8 +248,9 @@ prediction-time rules</h3>
 <li><strong>Split first</strong> — stratified random 70% / 15% / 15% by
 game row (unchanged from Assignment 5).</li>
 <li><strong>Imputation</strong> — numeric medians computed on
-<strong>training rows only</strong>, applied to validation/test (via
-<code>build_feature_matrix</code> on each split frame).</li>
+<strong>training rows only</strong>, then applied to validation and test
+through
+<code>build_feature_matrix(..., numeric_medians=train_medians)</code>.</li>
 <li><strong>Scaling</strong> — <code>StandardScaler</code> fit on
 <strong>training</strong> features for logistic regression and MLP;
 trees use median-imputed raw features (scale-invariant).</li>
@@ -260,10 +261,10 @@ columns in <em>X</em>; each game appears in one split only.</li>
 </ol>
 <p><strong>Embeddings:</strong> Not used. Category fields are binary
 flags, not repeated high-cardinality IDs. Numeric fields are not
-identity codes. Sentence for writeup: <em>“Embeddings were not
-appropriate because categories are low-cardinality one-hot flags and
-there are no stable high-cardinality entity IDs; I used scaled numerics
-plus binary category columns instead.”</em></p>
+identity codes. <em>Embeddings were not appropriate because categories
+are low-cardinality one-hot flags and there are no stable
+high-cardinality entity IDs; I used scaled numerics plus binary category
+columns instead.</em></p>
 <h3 id="split-and-audit-evidence">Split and audit evidence</h3>
 <table>
 <thead>
@@ -337,8 +338,10 @@ validation F1</strong> (patience 15; best epoch
 </tbody>
 </table>
 <p>Model selection uses <strong>validation F1</strong> on
-<code>high_rating=1</code>. Test metrics reported once for final
-comparison. No hyperparameter search beyond the fixed configs above.</p>
+<code>high_rating=1</code> for the <strong>MLP checkpoint</strong>
+(early stop). Logistic and GBT use fixed configs; validation metrics
+guide comparison, and test metrics are reported once for final
+reporting. No hyperparameter search beyond the fixed configs above.</p>
 <h3 id="results-table">Results table</h3>
 <table>
 <colgroup>
@@ -382,17 +385,17 @@ comparison. No hyperparameter search beyond the fixed configs above.</p>
 </tr>
 <tr>
 <td><strong>Gradient boosted trees</strong></td>
-<td style="text-align: right;"><strong>0.685</strong></td>
-<td style="text-align: right;">0.624</td>
+<td style="text-align: right;"><strong>0.684</strong></td>
+<td style="text-align: right;">0.623</td>
 <td style="text-align: right;"><strong>0.895</strong></td>
 <td style="text-align: right;"><strong>0.714</strong></td>
-<td style="text-align: right;">0.661</td>
+<td style="text-align: right;">0.660</td>
 <td style="text-align: right;"><strong>0.910</strong></td>
 </tr>
 <tr>
 <td>MLP (early stop, epoch 63)</td>
-<td style="text-align: right;">0.621</td>
-<td style="text-align: right;"><strong>0.730</strong></td>
+<td style="text-align: right;">0.620</td>
+<td style="text-align: right;"><strong>0.729</strong></td>
 <td style="text-align: right;">0.818</td>
 <td style="text-align: right;">0.619</td>
 <td style="text-align: right;"><strong>0.747</strong></td>
@@ -401,7 +404,7 @@ comparison. No hyperparameter search beyond the fixed configs above.</p>
 </tbody>
 </table>
 <p>Validation precision: logistic <strong>0.703</strong>, GBT
-<strong>0.759</strong>, MLP <strong>0.541</strong>. Test accuracy:
+<strong>0.759</strong>, MLP <strong>0.540</strong>. Test accuracy:
 logistic <strong>0.801</strong>, GBT <strong>0.861</strong>, MLP
 <strong>0.759</strong>.</p>
 <figure>
@@ -411,7 +414,9 @@ alt="MLP training curves — validation checkpoint selection" />
 checkpoint selection</figcaption>
 </figure>
 <p><em>Figure 1: MLP train/validation F1 and validation recall/ROC-AUC;
-dashed line = selected checkpoint (epoch 63).</em></p>
+dashed line = selected checkpoint (epoch 63). Validation recall peaks
+early (~epoch 15) then drifts down while F1 keeps improving — epoch 63
+was chosen on validation F1, not peak recall.</em></p>
 <h3 id="model-choice-recommendation">Model-choice recommendation</h3>
 <p><strong>Tabular modeling is justified</strong> for this portfolio
 problem: structured metadata and category flags carry signal well above

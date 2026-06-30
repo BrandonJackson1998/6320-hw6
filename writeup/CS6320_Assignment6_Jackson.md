@@ -28,12 +28,12 @@ Features follow the Assignment 4 charter and Assignment 5 manifest: rating field
 ### Preprocessing and prediction-time rules
 
 1. **Split first** — stratified random 70% / 15% / 15% by game row (unchanged from Assignment 5).
-2. **Imputation** — numeric medians computed on **training rows only**, applied to validation/test (via `build_feature_matrix` on each split frame).
+2. **Imputation** — numeric medians computed on **training rows only**, then applied to validation and test through `build_feature_matrix(..., numeric_medians=train_medians)`.
 3. **Scaling** — `StandardScaler` fit on **training** features for logistic regression and MLP; trees use median-imputed raw features (scale-invariant).
 4. **Categories** — eight `Cat:*` flags kept as 0/1 integers (low cardinality).
 5. **Leakage** — no rating-derived or post-hoc demand columns in *X*; each game appears in one split only.
 
-**Embeddings:** Not used. Category fields are binary flags, not repeated high-cardinality IDs. Numeric fields are not identity codes. Sentence for writeup: *“Embeddings were not appropriate because categories are low-cardinality one-hot flags and there are no stable high-cardinality entity IDs; I used scaled numerics plus binary category columns instead.”*
+**Embeddings:** Not used. Category fields are binary flags, not repeated high-cardinality IDs. Numeric fields are not identity codes. *Embeddings were not appropriate because categories are low-cardinality one-hot flags and there are no stable high-cardinality entity IDs; I used scaled numerics plus binary category columns instead.*
 
 ### Split and audit evidence
 
@@ -54,7 +54,7 @@ Positive rates are stable across splits (within ~1.5 pp). Audit tables: `prep/bg
 | Gradient boosted trees | Strong tabular benchmark | `HistGradientBoostingClassifier`, depth 6, lr 0.08, 300 trees |
 | MLP | Neural tabular | 64→32, ReLU, dropout 0.2, Adam (wd=1e-4), **BCE `pos_weight`** for imbalance, **early stop on validation F1** (patience 15; best epoch **63**) |
 
-Model selection uses **validation F1** on `high_rating=1`. Test metrics reported once for final comparison. No hyperparameter search beyond the fixed configs above.
+Model selection uses **validation F1** on `high_rating=1` for the **MLP checkpoint** (early stop). Logistic and GBT use fixed configs; validation metrics guide comparison, and test metrics are reported once for final reporting. No hyperparameter search beyond the fixed configs above.
 
 ### Results table
 
@@ -62,14 +62,14 @@ Model selection uses **validation F1** on `high_rating=1`. Test metrics reported
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | Majority class | 0.000 | 0.000 | 0.500 | 0.000 | 0.000 | 0.500 |
 | Logistic regression | 0.527 | 0.422 | 0.815 | 0.544 | 0.454 | 0.832 |
-| **Gradient boosted trees** | **0.685** | 0.624 | **0.895** | **0.714** | 0.661 | **0.910** |
-| MLP (early stop, epoch 63) | 0.621 | **0.730** | 0.818 | 0.619 | **0.747** | 0.830 |
+| **Gradient boosted trees** | **0.684** | 0.623 | **0.895** | **0.714** | 0.660 | **0.910** |
+| MLP (early stop, epoch 63) | 0.620 | **0.729** | 0.818 | 0.619 | **0.747** | 0.830 |
 
-Validation precision: logistic **0.703**, GBT **0.759**, MLP **0.541**. Test accuracy: logistic **0.801**, GBT **0.861**, MLP **0.759**.
+Validation precision: logistic **0.703**, GBT **0.759**, MLP **0.540**. Test accuracy: logistic **0.801**, GBT **0.861**, MLP **0.759**.
 
 ![MLP training curves — validation checkpoint selection](mlp_training_curves.png)
 
-*Figure 1: MLP train/validation F1 and validation recall/ROC-AUC; dashed line = selected checkpoint (epoch 63).*
+*Figure 1: MLP train/validation F1 and validation recall/ROC-AUC; dashed line = selected checkpoint (epoch 63). Validation recall peaks early (~epoch 15) then drifts down while F1 keeps improving — epoch 63 was chosen on validation F1, not peak recall.*
 
 ### Model-choice recommendation
 
